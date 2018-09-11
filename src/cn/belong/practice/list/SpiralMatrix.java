@@ -15,54 +15,46 @@ import java.util.List;
 public class SpiralMatrix {
 
     /**
-     * Given a matrix of m x n elements (m rows, n columns),
-     * return all elements of the matrix in spiral order.
+     * Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
      */
     public List<Integer> spiralOrder(int[][] matrix) {
 
-        if (matrix == null || matrix.length == 0)
-            return null;
-
-        if (matrix[0] == null || matrix[0].length == 0)
-            return null;
-
-        int width = matrix.length;
-        int height = matrix[0].length;
-
-
-        /*
-            int[][] matrix = {
-                    {1, 2, 3},
-                    {4, 5, 6},
-                    {7, 8, 9}
-            };
-         */
-
         List<Integer> list = new ArrayList<>();
 
-        int line = 0;
-        int minWi = 0;
-        int maxWi = width;
+        if (matrix == null || matrix.length == 0)
+            return list;
 
-        int minHi = 0;
-        int maxHi = height;
+        if (matrix[0] == null || matrix[0].length == 0)
+            return list;
 
-        while (minHi < maxHi) {
-            addWidthUp(list, matrix, line, minWi, maxWi);
+        int column = matrix.length;
+        int line = matrix[0].length;
 
-            minHi++;
-            // add height
-            addHeightUp(list, matrix, maxWi - 1, minHi, maxHi - 1);
+        int left = 0;
+        int right = line;
 
-            maxWi--;
-            addWidthDown(list, matrix, maxHi - 1, minWi, maxWi - 1);
-            maxHi--;
+        int top = 0;
+        int depth = column;
 
-            addHeightDown(list, matrix, minWi, minHi, maxHi - 1);
-            minWi++;
-            line++;
+        while (depth > top && left < right) {
+            addWidthUp(list, matrix, top, left, right);
+            top++;
+            if (top == depth)
+                break;
+            addHeightUp(list, matrix, right - 1, top, depth);
+            right--;
+            if (left == right)
+                break;
+            addWidthDown(list, matrix, depth - 1, left, right - 1);
+            depth--;
+            if (top == depth)
+                break;
+            addHeightDown(list, matrix, left, top, depth - 1);
+            left++;
+            if (left == right)
+                break;
+            System.out.println("left -> " + left + "right -> " + right + " top -> " + top + "depth -> " + depth);
         }
-
 
         return list;
     }
@@ -75,7 +67,7 @@ public class SpiralMatrix {
     }
 
     private void addWidthDown(List<Integer> list, int[][] matrix, int line, int min, int max) {
-        for (int i = max; min < i; i--) {
+        for (int i = max; min <= i; i--) {
             list.add(matrix[line][i]);
         }
     }
@@ -95,18 +87,18 @@ public class SpiralMatrix {
 
     @Test
     public void test() {
-//
-//        int[][] matrix = {
-//                {1, 2, 3},
-//                {4, 5, 6},
-//                {7, 8, 9}
-//        };
 
         int[][] matrix = {
-                {1, 2, 3, 4},
-                {5, 6, 7, 8},
-                {9, 10, 11, 12}
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
         };
+
+//        int[][] matrix = {
+//                {1, 2, 3, 4},
+//                {5, 6, 7, 8},
+//                {9, 10, 11, 12}
+//        };
 
         List<Integer> list = spiralOrder(matrix);
 
