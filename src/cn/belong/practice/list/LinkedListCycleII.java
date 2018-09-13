@@ -44,27 +44,16 @@ public class LinkedListCycleII {
 
     public ListNode detectCycle2(ListNode head) {
 
-        if (head == null || head.next == null)
-            return null;
-
-        if (head == head.next)
-            return head;
-
         ListNode cur = head;
 
         while (cur != null) {
             ListNode slow = cur;
             ListNode fast = cur;
-            while (slow != null && fast != null) {
+            while (slow != null && fast != null && fast.next != null) {
                 slow = slow.next;
-                if (fast.next == null) {
-                    return null;
-                }
                 fast = fast.next.next;
-
                 if (slow == cur || fast == cur)
                     return cur;
-
                 if (slow == fast)
                     break;
             }
