@@ -38,6 +38,7 @@ public class LowestCommonAncestorOfBinaryTree {
         Map<TreeNode, TreeNode> map = new HashMap<>();
         stack.push(root);
 
+        // 获取每个节点的父亲节点
         while (!stack.isEmpty()) {
             TreeNode parent = stack.pop();
             if (parent.left != null) {
