@@ -25,11 +25,7 @@ public class BST<E extends Comparable<E>> {
      * @param val 待添加元素
      */
     public void add(E val) {
-        Node newNode = new Node(val);
-        if (root == null)
-            root = newNode;
-        else
-            root = add(root, newNode);
+        root = add(root, val);
     }
 
     /**
@@ -115,15 +111,15 @@ public class BST<E extends Comparable<E>> {
      *
      * @return 返回新的树的根
      */
-    private Node add(Node node, Node newNode) {
+    private Node add(Node node, E val) {
 
         if (node == null)
-            return newNode;
+            return new Node(val);
 
-        if (node.val.compareTo(newNode.val) >= 0)
-            node.left = add(node.left, newNode);
+        if (node.val.compareTo(val) >= 0)
+            node.left = add(node.left, val);
         else
-            node.right = add(node.right, newNode);
+            node.right = add(node.right, val);
 
         return node;
     }
