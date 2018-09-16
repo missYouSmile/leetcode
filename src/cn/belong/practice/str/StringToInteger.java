@@ -3,7 +3,9 @@ package cn.belong.practice.str;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -57,8 +59,62 @@ public class StringToInteger {
         return ret;
     }
 
+    public int myAtoi2(String str) {
+
+        if (str == null || str.trim().isEmpty())
+            return 0;
+
+        str = str.trim();
+
+        int sign = 1;
+        int index = 0;
+
+        if (str.charAt(index) == '-') {
+            sign = -1;
+        }
+
+        if (str.charAt(index) == '-' || str.charAt(index) == '+')
+            index++;
+
+        List<Integer> rl = new ArrayList<>();
+
+        while (index < str.length()) {
+            if (list.contains(str.charAt(index))) {
+                rl.add(str.charAt(index) - '0');
+                index++;
+            } else {
+                break;
+            }
+        }
+
+        Iterator<Integer> iterator = rl.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next() == 0) {
+                iterator.remove();
+            } else {
+                break;
+            }
+        }
+
+        long carry = 10;
+        long ret = 0;
+
+        for (int i = 0; i < rl.size(); i++) {
+            long temp = rl.get(i);
+            ret = ret * carry + temp;
+            if (sign == 1 && ret > Integer.MAX_VALUE)
+                return Integer.MAX_VALUE;
+            if (sign == -1 && -ret < Integer.MIN_VALUE)
+                return Integer.MIN_VALUE;
+        }
+
+        return (int) ret * sign;
+    }
+
     @Test
     public void test() {
-        System.out.println(myAtoi("-91283472332"));
+        System.out.println(myAtoi2("4193 with words"));
+        System.out.println(Integer.MIN_VALUE);
+        System.out.println(Integer.MAX_VALUE);
     }
 }
