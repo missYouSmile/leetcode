@@ -23,6 +23,30 @@ int lengthOfLastWord(char *s) {
     return len != 0 ? len : ret;
 }
 
+int lengthOfLastWord2(char *s) {
+    int len = 0;
+    while (*s) {
+        len++;
+        s++;
+    }
+    // *s == '\0'
+    s--;
+    // trim()
+    while (isspace(*s) && (len > 0)) {
+        s--;
+        len--;
+    }
+
+    int ll = 0;
+    // last char
+    while (!isspace(*s) && (len > 0)) {
+        ll++;
+        len--;
+        s--;
+    }
+    return ll;
+}
+
 int main() {
     int ret = lengthOfLastWord(" ");
     printf("the length is : %d", ret);
