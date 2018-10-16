@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 public class QuickSort {
 
-    public <E extends Comparable<E>> void qSort(E[] arr) {
+    public static <E extends Comparable<E>> void sort(E[] arr) {
 
         if (arr == null || arr.length <= 1)
             return;
@@ -19,7 +19,7 @@ public class QuickSort {
         qSort(arr, 0, arr.length - 1);
     }
 
-    private <E extends Comparable<E>> void qSort(E[] arr, int left, int right) {
+    private static <E extends Comparable<E>> void qSort(E[] arr, int left, int right) {
 
         if (left >= right)
             return;
@@ -39,14 +39,12 @@ public class QuickSort {
         // 此时，left -> partition - 1 的元素一点比 partition 位置的元素小，即: 找到了 partition 的位置
         swap(arr, partition, left);
 
-        System.out.println(Arrays.toString(arr));
-
         // 分别对 partition 之前，之后的两个区域的元素进行同样的操作
         qSort(arr, left, partition - 1);
         qSort(arr, partition + 1, right);
     }
 
-    private void swap(Object[] arr, int i, int j) {
+    private static void swap(Object[] arr, int i, int j) {
         Object temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
@@ -56,7 +54,7 @@ public class QuickSort {
     @Test
     public void test() {
         Integer[] arr = {32, 43, 54, 31, 654, 654, 76, 243, 42, 658, 100};
-        qSort(arr);
+        sort(arr);
         System.out.println(Arrays.toString(arr));
     }
 

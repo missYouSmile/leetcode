@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class MergeSort {
 
-    private static void sort(int[] arr, int l, int r) {
+    private static void sort(Integer[] arr, int l, int r) {
 
         if (l >= r)
             return;
@@ -14,7 +14,7 @@ public class MergeSort {
         sort(arr, l, mid);
         sort(arr, mid + 1, r);
 
-        merge(arr, l, mid, r);
+        merge0(arr, l, mid, r);
     }
 
     /**
@@ -25,7 +25,7 @@ public class MergeSort {
      * @param mid 中间位置
      * @param r   结束位置
      */
-    private static void merge(int[] arr, int l, int mid, int r) {
+    private static void merge(Integer[] arr, int l, int mid, int r) {
 
         while (mid < r) {
             int temp = arr[mid + 1];
@@ -40,14 +40,42 @@ public class MergeSort {
 
     }
 
-    public static void sort(int[] arr) {
+    private static void merge0(Integer[] arr, int l, int mid, int r) {
+
+        Integer[] temp = new Integer[r - l + 1];
+
+        int li = l;
+        int ri = mid + 1;
+        int ti = 0;
+        while (li <= mid && ri <= r) {
+            if (arr[li] < arr[ri])
+                temp[ti] = arr[li++];
+            else
+                temp[ti] = arr[ri++];
+            ti++;
+        }
+
+        while (li <= mid) {
+            temp[ti++] = arr[li++];
+        }
+
+        while (ri <= r) {
+            temp[ti++] = arr[ri++];
+        }
+
+        for (int i = 0; i < temp.length; i++) {
+            arr[l + i] = temp[i];
+        }
+    }
+
+    public static void sort(Integer[] arr) {
         if (arr == null || arr.length < 1)
             return;
         sort(arr, 0, arr.length - 1);
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, 3, 2, 43, 54, 61, 4, 3, 13, 54, 24, 31};
+        Integer[] arr = {1, 3, 2, 43, 54, 61, 4, 3, 13, 54, 24, 31};
         System.out.println(Arrays.toString(arr) + " | " + arr.length);
         sort(arr);
         System.out.println(Arrays.toString(arr) + " | " + arr.length);
