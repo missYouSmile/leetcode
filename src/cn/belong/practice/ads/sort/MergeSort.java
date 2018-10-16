@@ -1,4 +1,4 @@
-package cn.belong.practice.sort;
+package cn.belong.practice.ads.sort;
 
 import java.util.Arrays;
 
