@@ -4,17 +4,17 @@ import java.util.Arrays;
 
 public class MergeSort {
 
-    private static void sort(Integer[] arr, int l, int r) {
+    private static void sort(Integer[] arr, Integer[] temp, int l, int r) {
 
         if (l >= r)
             return;
 
         int mid = l + (r - l) / 2;
 
-        sort(arr, l, mid);
-        sort(arr, mid + 1, r);
+        sort(arr, temp, l, mid);
+        sort(arr, temp, mid + 1, r);
 
-        merge0(arr, l, mid, r);
+        merge0(arr, temp, l, mid, r);
     }
 
     /**
@@ -48,9 +48,7 @@ public class MergeSort {
      * @param mid 中间位置
      * @param r   结束位置
      */
-    private static void merge0(Integer[] arr, int l, int mid, int r) {
-
-        Integer[] temp = new Integer[r - l + 1];
+    private static void merge0(Integer[] arr, Integer[] temp, int l, int mid, int r) {
 
         int li = l;
         int ri = mid + 1;
@@ -74,7 +72,8 @@ public class MergeSort {
         }
 
         // N
-        for (int i = 0; i < temp.length; i++) {
+        int curTotal = r - l + 1;
+        for (int i = 0; i < curTotal; i++) {
             arr[l + i] = temp[i];
         }
     }
@@ -82,7 +81,8 @@ public class MergeSort {
     public static void sort(Integer[] arr) {
         if (arr == null || arr.length < 1)
             return;
-        sort(arr, 0, arr.length - 1);
+        Integer[] temp = new Integer[arr.length];
+        sort(arr, temp, 0, arr.length - 1);
     }
 
     public static void main(String[] args) {
