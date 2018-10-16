@@ -18,7 +18,7 @@ public class MergeSort {
     }
 
     /**
-     * 原地merge
+     * 原地merge(移动次数太多,性能问题)
      *
      * @param arr 数组
      * @param l   开始位置
@@ -40,6 +40,14 @@ public class MergeSort {
 
     }
 
+    /**
+     * 空间换时间 O(NlogN)
+     *
+     * @param arr 数组
+     * @param l   开始位置
+     * @param mid 中间位置
+     * @param r   结束位置
+     */
     private static void merge0(Integer[] arr, int l, int mid, int r) {
 
         Integer[] temp = new Integer[r - l + 1];
@@ -47,6 +55,7 @@ public class MergeSort {
         int li = l;
         int ri = mid + 1;
         int ti = 0;
+        // log(N)
         while (li <= mid && ri <= r) {
             if (arr[li] < arr[ri])
                 temp[ti] = arr[li++];
@@ -55,6 +64,7 @@ public class MergeSort {
             ti++;
         }
 
+        // 两个 while 只可能执行一个
         while (li <= mid) {
             temp[ti++] = arr[li++];
         }
@@ -63,6 +73,7 @@ public class MergeSort {
             temp[ti++] = arr[ri++];
         }
 
+        // N
         for (int i = 0; i < temp.length; i++) {
             arr[l + i] = temp[i];
         }
