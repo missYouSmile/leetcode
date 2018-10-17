@@ -8,15 +8,20 @@ public class SortTest {
 
     public static void main(String[] args) {
 
-        int count = 10000000;
+        int count = 1000000;
+
         Integer[] arr = getArr(count);
         Integer[] a1 = copy(arr);
         quickSort(a1);
         isSorted(a1);
+
         Integer[] a2 = copy(arr);
         mergeSort(a2);
         isSorted(a2);
 
+        Integer[] a3 = copy(arr);
+        quickSort3(a3);
+        isSorted(a3);
     }
 
     private static void mergeSort(Integer[] arr) {
@@ -31,6 +36,13 @@ public class SortTest {
         QuickSort.sort(arr);
         long end = System.nanoTime();
         System.out.println("quick sort nano time : " + (end - start) / 1000000000.0);
+    }
+
+    private static void quickSort3(Integer[] arr) {
+        long start = System.nanoTime();
+        ThreeQuickSort.sort(arr);
+        long end = System.nanoTime();
+        System.out.println("3 ways quick sort nano time : " + (end - start) / 1000000000.0);
     }
 
     private static Integer[] getArr(int count) {
