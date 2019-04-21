@@ -1,5 +1,7 @@
 package cn.belong.practice.ads.sort;
 
+import java.util.Arrays;
+
 /**
  * @author shiwen.chen
  * @date 2018-10-16 17:51
@@ -8,7 +10,7 @@ public class SortTest {
 
     public static void main(String[] args) {
 
-        int count = 1000000;
+        int count = 1_000_000;
 
         Integer[] arr = getArr(count);
         Integer[] a1 = copy(arr);
@@ -22,6 +24,10 @@ public class SortTest {
         Integer[] a3 = copy(arr);
         quickSort3(a3);
         isSorted(a3);
+
+        Integer[] a4 = copy(arr);
+        shellSort(a4);
+        isSorted(a4);
     }
 
     private static void mergeSort(Integer[] arr) {
@@ -43,6 +49,13 @@ public class SortTest {
         ThreeQuickSort.sort(arr);
         long end = System.nanoTime();
         System.out.println("3 ways quick sort nano time : " + (end - start) / 1000000000.0);
+    }
+
+    private static void shellSort(Integer[] arr) {
+        long start = System.nanoTime();
+        ShellSort.sort(arr);
+        long end = System.nanoTime();
+        System.out.println("shell sort nano time : " + (end - start) / 1000000000.0);
     }
 
     private static Integer[] getArr(int count) {
